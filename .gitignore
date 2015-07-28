@@ -1,0 +1,5 @@
+*.phar
+bin/*
+!bin/meli-cs-fixer
+composer.lock
+vendor

@@ -1,0 +1,131 @@
+<?php
+
+namespace Meli\CS
+{
+
+/**
+ * Removes method visibility.
+ */
+class RemoveVisibilityFixer implements \Symfony\CS\FixerInterface
+{
+    /**
+     * {@inheritDoc}
+     */
+    public function fix(\SplFileInfo $file, $content)
+    {
+        $codeContent = '';
+
+        foreach (token_get_all($content) as $token) {
+            if (is_array($token)) {
+                switch ($token[0]) {
+                    case T_COMMENT:
+                    case T_DOC_COMMENT:
+                    case T_INLINE_HTML:
+                    case T_CONSTANT_ENCAPSED_STRING:
+                        $token = '';
+                        break;
+                    default:
+                        $token = $token[1];
+                        break;
+                }
+            }
+            $codeContent .= $token;
+        }
+
+        if (!preg_match('{\b(?<!\$)(?:class|interface|trait)\b}i', $codeContent)) {
+            return $content;
+        }
+
+        $content = preg_replace_callback('/^( {2,4}|\t)((?:(?:public|protected|private|static|abstract|final)\s+)*)(?:function\s+([a-z0-9_]+))/im', function ($matches) {
+            $matches[2] = preg_replace('/\\s/', ' ', $matches[2]);
+            $flags = explode(' ', strtolower(trim($matches[2])));
+
+            return $matches[1] . 'function '. $matches[3];
+        }, $content);
+
+        return $content;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLevel()
+    {
+        return \Symfony\CS\FixerInterface::SYMFONY_LEVEL;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getPriority()
+    {
+        return 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function supports(\SplFileInfo $file)
+    {
+        return 'php' === pathinfo($file->getFilename(), PATHINFO_EXTENSION)
+            && 'Spec' === substr($file->getBasename('.php'), -strlen('Spec'))
+        ;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getName()
+    {
+        return 'visibility_remove';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDescription()
+    {
+        return 'Remove visibility.';
+    }
+}
+
+}
+
+namespace
+{
+
+$header = <<<EOF
+This file is part of the Meli library.
+
+(c) Bruno Galeotti <bgaleotti@gmail.com>
+
+This source file is subject to the MIT license that is bundled
+with this source code in the file LICENSE.
+EOF;
+
+\Symfony\CS\Fixer\Contrib\HeaderCommentFixer::setHeader($header);
+
+$finder = \Symfony\CS\Finder\DefaultFinder::create()
+    ->files()
+    ->name('*Spec.php')
+    ->in(__DIR__.'/src/spec')
+;
+
+return \Symfony\CS\Config\Config::create()
+    ->finder($finder)
+    ->fixers([
+        'align_double_arrow',
+        'align_equals',
+        'header_comment',
+        'ordered_use',
+        'short_array_syntax',
+        'strict',
+        'strict_param',
+        'phpdoc_order',
+        'phpdoc_var_to_type',
+        '-visibility',
+    ])
+    ->addCustomFixer(new \Meli\CS\RemoveVisibilityFixer())
+;
+
+}

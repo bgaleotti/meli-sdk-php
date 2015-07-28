@@ -1,0 +1,6 @@
+suites:
+    Meli:
+        namespace:   Meli
+        psr4_prefix: Meli
+        src_path:    src
+        spec_path:   src

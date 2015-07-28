@@ -1,0 +1,43 @@
+{
+    "name": "meli/meli-sdk-php",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Bruno Galeotti"
+        }
+    ],
+    "description": "MercadoLibre API client.",
+    "autoload": {
+        "psr-4": {
+            "Meli\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "spec\\Meli\\": "src/spec"
+        }
+    },
+    "require": {
+        "php": ">=5.5",
+        "doctrine/inflector": "~1.0",
+        "egeloen/http-adapter": "~0.8@dev",
+        "jms/serializer": "~1.0",
+        "pagerfanta/pagerfanta": "~1.0",
+        "symfony/finder": "~2.7"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "~2.1"
+    },
+    "suggest": {
+        "adrienbrault/pagerfanta-iterator": "Support traversing paginated resources."
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    }
+}
