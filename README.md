@@ -1,6 +1,6 @@
 # MercadoLibre API client
 
-[![Build Status](https://travis-ci.org/bgaleotti/meli.svg)](https://travis-ci.org/bgaleotti/meli)
+[![Build Status](https://travis-ci.org/bgaleotti/meli-sdk-php.svg)](https://travis-ci.org/bgaleotti/meli-sdk-php)
 
 # Installation
 
@@ -8,7 +8,7 @@ The recommended way to install Meli is through
 [Composer](http://getcomposer.org):
 
 ```
-$ composer require bgaleotti/meli
+$ composer require bgaleotti/meli-sdk-php
 ```
 
 ## Tests
@@ -22,4 +22,4 @@ $ bin/phpspec run
 ## Credits
 
 * Bruno Galeotti <bgaleotti@gmail.com>
-* [All contributors](https://github.com/bgaleotti/meli/contributors)
+* [All contributors](https://github.com/bgaleotti/meli-sdk-php/contributors)
