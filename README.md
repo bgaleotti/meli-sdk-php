@@ -4,6 +4,7 @@
 [![License](https://img.shields.io/packagist/l/bgaleotti/meli-sdk-php.svg)](https://packagist.org/packages/bgaleotti/meli-sdk-php)
 [![Version](https://img.shields.io/packagist/v/bgaleotti/meli-sdk-php.svg)](https://packagist.org/packages/bgaleotti/meli-sdk-php)
 [![HHVM Status](https://img.shields.io/hhvm/bgaleotti/meli-sdk-php.svg)](http://hhvm.h4cc.de/package/bgaleotti/meli-sdk-php)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/bgaleotti/meli-sdk-php.svg)](https://scrutinizer-ci.com/g/bgaleotti/meli-sdk-php)
 
 # Installation
 
