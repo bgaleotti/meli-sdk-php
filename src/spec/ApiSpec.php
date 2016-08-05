@@ -11,7 +11,9 @@
 
 namespace spec\Meli;
 
-use Ivory\HttpAdapter\HttpAdapterInterface;
+use Http\Client\Common\HttpMethodsClient;
+use Http\Message\MessageFactory;
+use Http\Message\UriFactory;
 use Meli\Api;
 use Meli\Exception\ResourceNotRegistered;
 use Meli\Resource\Category;
@@ -25,15 +27,21 @@ use Meli\Resource\SiteDomain;
 use Meli\Resource\State;
 use Meli\Resource\User;
 use PhpSpec\ObjectBehavior;
+use Psr\Http\Message\UriInterface;
 
 /**
  * @author Bruno Galeotti <bgaleotti@gmail.com>
  */
 class ApiSpec extends ObjectBehavior
 {
-    function let(HttpAdapterInterface $adapter)
-    {
-        $this->beConstructedWith($adapter);
+    function let(
+        HttpMethodsClient $httpMethodsClient,
+        MessageFactory $messageFactory,
+        UriFactory $uriFactory,
+        UriInterface $baseUri
+    ) {
+        $uriFactory->createUri(Api::BASE_URL)->willReturn($baseUri);
+        $this->beConstructedWith($httpMethodsClient, $messageFactory, $uriFactory);
     }
 
     function it_is_initializable()

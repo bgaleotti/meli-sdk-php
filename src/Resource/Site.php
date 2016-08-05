@@ -35,26 +35,26 @@ class Site extends Resource
 
     public function categories($id)
     {
-        return new SiteCategory($this->adapter, $id);
+        return new SiteCategory($this->httpMethodsClient, $id);
     }
 
     public function listingExposures($id)
     {
-        return new ListingExposure($this->adapter, $id);
+        return new ListingExposure($this->httpMethodsClient, $id);
     }
 
     public function listingPrices($id)
     {
-        return new ListingPrice($this->adapter, $id);
+        return new ListingPrice($this->httpMethodsClient, $id);
     }
 
     public function listingTypes($id)
     {
-        return new ListingType($this->adapter, $id);
+        return new ListingType($this->httpMethodsClient, $id);
     }
 
     public function paymentMethods($id)
     {
-        return new PaymentMethod($this->adapter, $id);
+        return new PaymentMethod($this->httpMethodsClient, $id);
     }
 }

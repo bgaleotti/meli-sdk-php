@@ -26,6 +26,6 @@ class Category extends Resource
 
     public function attributes($id)
     {
-        return new Attribute($this->adapter, $id);
+        return new Attribute($this->httpMethodsClient, $id);
     }
 }

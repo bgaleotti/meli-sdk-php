@@ -11,7 +11,7 @@
 
 namespace spec\Meli\Resource\Category;
 
-use Ivory\HttpAdapter\HttpAdapterInterface;
+use Http\Client\Common\HttpMethodsClient;
 use Meli\Resource\Category\Attribute;
 use PhpSpec\ObjectBehavior;
 
@@ -20,9 +20,9 @@ use PhpSpec\ObjectBehavior;
  */
 class AttributeSpec extends ObjectBehavior
 {
-    function let(HttpAdapterInterface $adapter)
+    function let(HttpMethodsClient $httpMethodsClient)
     {
-        $this->beConstructedWith($adapter, 'MLA5725');
+        $this->beConstructedWith($httpMethodsClient, 'MLA5725');
     }
 
     function it_is_initializable()

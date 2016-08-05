@@ -11,6 +11,7 @@
 
 namespace Meli\Pagerfanta\Adapter;
 
+use Http\Client\Common\HttpMethodsClient;
 use Ivory\HttpAdapter\HttpAdapterInterface;
 use Pagerfanta\Adapter\AdapterInterface;
 
@@ -19,29 +20,14 @@ use Pagerfanta\Adapter\AdapterInterface;
  */
 class ItemAdapter implements AdapterInterface
 {
-    /**
-     * @type HttpAdapterInterface
-     */
-    protected $adapter;
-
-    /**
-     * @type string
-     */
+    private $httpMethodsClient;
     private $uri;
-
-    /**
-     * @type array
-     */
     private $json;
 
-    /**
-     * @param HttpAdapterInterface $adapter
-     * @param string               $uri
-     */
-    public function __construct(HttpAdapterInterface $adapter, $uri)
+    public function __construct(HttpMethodsClient $httpMethodsClient, string $uri)
     {
-        $this->adapter = $adapter;
-        $this->uri     = $uri;
+        $this->httpMethodsClient = $httpMethodsClient;
+        $this->uri = $uri;
     }
 
     /**
@@ -125,6 +111,6 @@ class ItemAdapter implements AdapterInterface
      */
     private function fetchJson($uri)
     {
-        return json_decode($this->adapter->get($uri)->getBody(), true);
+        return json_decode($this->httpMethodsClient->get($uri)->getBody(), true);
     }
 }

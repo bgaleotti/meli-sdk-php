@@ -11,7 +11,7 @@
 
 namespace Meli\Resource\Category;
 
-use Ivory\HttpAdapter\HttpAdapterInterface;
+use Http\Client\Common\HttpMethodsClient;
 use Meli\Resource;
 
 /**
@@ -25,12 +25,12 @@ class Attribute extends Resource
     protected $categoryId;
 
     /**
-     * @param HttpAdapterInterface $adapter
+     * @param HttpMethodsClient $httpMethodsClient
      * @param string               $categoryId
      */
-    public function __construct(HttpAdapterInterface $adapter, $categoryId)
+    public function __construct(HttpMethodsClient $httpMethodsClient, $categoryId)
     {
-        parent::__construct($adapter);
+        parent::__construct($httpMethodsClient);
         $this->categoryId = $categoryId;
     }
 

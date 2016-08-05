@@ -11,7 +11,7 @@
 
 namespace spec\Meli\Resource;
 
-use Ivory\HttpAdapter\HttpAdapterInterface;
+use Http\Client\Common\HttpMethodsClient;
 use Meli\Resource\Site;
 use Meli\Resource\Site\Category;
 use Meli\Resource\Site\ListingExposure;
@@ -25,9 +25,9 @@ use PhpSpec\ObjectBehavior;
  */
 class SiteSpec extends ObjectBehavior
 {
-    function let(HttpAdapterInterface $adapter)
+    function let(HttpMethodsClient $httpMethodsClient)
     {
-        $this->beConstructedWith($adapter);
+        $this->beConstructedWith($httpMethodsClient);
     }
 
     function it_is_initializable()

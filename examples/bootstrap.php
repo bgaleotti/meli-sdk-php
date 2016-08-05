@@ -80,4 +80,4 @@ function has_color_support()
     return $support;
 }
 
-return new \Meli\Api(new \Ivory\HttpAdapter\CurlHttpAdapter());
+return \Meli\Api::create();

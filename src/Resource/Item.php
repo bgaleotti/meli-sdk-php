@@ -11,7 +11,7 @@
 
 namespace Meli\Resource;
 
-use Meli\Pagerfanta\Adapter\ItemAdapter;
+use Meli\Pagerfanta\httpMethodsClient\ItemhttpMethodsClient;
 use Meli\Resource;
 
 /**
@@ -29,8 +29,8 @@ class Item extends Resource
         return $this->createPaginator("/sites/$siteId/search?q=".urlencode($query));
     }
 
-    protected function createPaginatorAdapter($uri)
+    protected function createPaginatorhttpMethodsClient($uri)
     {
-        return new ItemAdapter($this->adapter, $uri);
+        return new ItemhttpMethodsClient($this->httpMethodsClient, $uri);
     }
 }
