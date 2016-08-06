@@ -11,7 +11,7 @@
 
 namespace spec\Meli\Resource\User;
 
-use Ivory\HttpAdapter\HttpAdapterInterface;
+use Http\Client\Common\HttpMethodsClient;
 use Meli\Resource\User\AcceptedPaymentMethod;
 use PhpSpec\ObjectBehavior;
 
@@ -20,9 +20,9 @@ use PhpSpec\ObjectBehavior;
  */
 class AcceptedPaymentMethodSpec extends ObjectBehavior
 {
-    function let(HttpAdapterInterface $adapter)
+    function let(HttpMethodsClient $httpMethodsClient)
     {
-        $this->beConstructedWith($adapter, 123456789);
+        $this->beConstructedWith($httpMethodsClient, 123456789);
     }
 
     function it_is_initializable()

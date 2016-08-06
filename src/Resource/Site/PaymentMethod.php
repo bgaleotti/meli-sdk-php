@@ -11,7 +11,7 @@
 
 namespace Meli\Resource\Site;
 
-use Ivory\HttpAdapter\HttpAdapterInterface;
+use Http\Client\Common\HttpMethodsClient;
 use Meli\Resource;
 
 /**
@@ -25,12 +25,12 @@ class PaymentMethod extends Resource
     protected $siteId;
 
     /**
-     * @param HttpAdapterInterface $adapter
+     * @param HttpMethodsClient $httpMethodsClient
      * @param string               $siteId
      */
-    public function __construct(HttpAdapterInterface $adapter, $siteId)
+    public function __construct(HttpMethodsClient $httpMethodsClient, $siteId)
     {
-        parent::__construct($adapter);
+        parent::__construct($httpMethodsClient);
         $this->siteId = $siteId;
     }
 

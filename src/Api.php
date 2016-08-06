@@ -12,6 +12,15 @@
 namespace Meli;
 
 use Doctrine\Common\Inflector\Inflector;
+use Http\Client\Common\HttpMethodsClient;
+use Http\Client\Common\Plugin\AddHostPlugin;
+use Http\Client\Common\PluginClient;
+use Http\Client\HttpClient;
+use Http\Discovery\HttpClientDiscovery;
+use Http\Discovery\MessageFactoryDiscovery;
+use Http\Discovery\UriFactoryDiscovery;
+use Http\Message\MessageFactory;
+use Http\Message\UriFactory;
 use Ivory\HttpAdapter\Configuration;
 use Ivory\HttpAdapter\ConfigurationInterface;
 use Ivory\HttpAdapter\HttpAdapterInterface;
@@ -24,26 +33,35 @@ use Symfony\Component\Finder\Finder;
 class Api
 {
     const BASE_URL = 'https://api.mercadolibre.com';
-    const VERSION  = '0.1-DEV';
+    const VERSION  = '0.2-DEV';
 
-    /**
-     * @type HttpAdapterInterface
-     */
-    protected $adapter;
+    protected $httpClient;
+    protected $messageFactory;
+    protected $uriFactory;
+    protected $httpMethodsClient;
 
-    /**
-     * @type Resource[]
-     */
     private $resources = [];
 
-    /**
-     * @param HttpAdapterInterface        $adapter
-     * @param ConfigurationInterface|null $configuration
-     */
-    public function __construct(HttpAdapterInterface $adapter, ConfigurationInterface $configuration = null)
+    public static function create() : self
     {
-        $this->adapter = $adapter;
-        $this->adapter->setConfiguration($configuration ?: $this->createConfiguration());
+        return new self(
+            HttpClientDiscovery::find(),
+            MessageFactoryDiscovery::find(),
+            UriFactoryDiscovery::find()
+        );
+    }
+
+    public function __construct(HttpClient $httpClient, MessageFactory $messageFactory, UriFactory $uriFactory)
+    {
+        $httpClient = new PluginClient($httpClient, [
+           new AddHostPlugin($uriFactory->createUri(self::BASE_URL))
+        ]);
+
+        $this->httpClient = $httpClient;
+        $this->messageFactory = $messageFactory;
+        $this->uriFactory = $uriFactory;
+        $this->httpMethodsClient = new HttpMethodsClient($httpClient, $messageFactory);
+
         $this->registerResources();
     }
 
@@ -72,25 +90,13 @@ class Api
 
         $namespace = __NAMESPACE__.'\\Resource';
         foreach ($finder as $file) {
-            $className       = $file->getBasename('.php');
+            $className  = $file->getBasename('.php');
             $reflectionClass = new \ReflectionClass($namespace.'\\'.$className);
             if ($reflectionClass->isSubclassOf(Resource::class) && !$reflectionClass->isAbstract()) {
-                $resource                       = $reflectionClass->newInstanceArgs([$this->adapter]);
-                $resourceName                   = Inflector::pluralize(Inflector::camelize($className));
+                $resource = $reflectionClass->newInstanceArgs([$this->httpMethodsClient]);
+                $resourceName = Inflector::pluralize(Inflector::camelize($className));
                 $this->resources[$resourceName] = $resource;
             }
         }
-    }
-
-    /**
-     * @return ConfigurationInterface
-     */
-    protected function createConfiguration()
-    {
-        $configuration = new Configuration();
-        $configuration->setBaseUri(self::BASE_URL);
-        $configuration->setUserAgent('MeliPHP/'.self::VERSION);
-
-        return $configuration;
     }
 }

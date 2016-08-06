@@ -11,7 +11,7 @@
 
 namespace spec\Meli\Pagerfanta\Adapter;
 
-use Ivory\HttpAdapter\HttpAdapterInterface;
+use Http\Client\Common\HttpMethodsClient;
 use Meli\Pagerfanta\Adapter\ItemAdapter;
 use PhpSpec\ObjectBehavior;
 use Psr\Http\Message\ResponseInterface;
@@ -25,13 +25,12 @@ class ItemAdapterSpec extends ObjectBehavior
     use \spec\Meli\FixtureTrait;
 
     function let(
-        HttpAdapterInterface $adapter,
-        ResponseInterface $response,
-        StreamInterface $body
+        HttpMethodsClient $httpMethodsClient,
+        ResponseInterface $response
     ) {
-        $adapter->get('/search?q=ipod')->willReturn($response);
+        $httpMethodsClient->get('/search?q=ipod')->willReturn($response);
         $response->getBody()->willReturn($this->loadFixture('ipod'));
-        $this->beConstructedWith($adapter, '/search?q=ipod');
+        $this->beConstructedWith($httpMethodsClient, '/search?q=ipod');
     }
 
     function it_is_initializable()
@@ -45,11 +44,11 @@ class ItemAdapterSpec extends ObjectBehavior
     }
 
     function it_returns_a_slice_of_results(
-        HttpAdapterInterface $adapter,
+        HttpMethodsClient $httpMethodsClient,
         ResponseInterface $response,
         StreamInterface $body
     ) {
-        $adapter->get('/search?q=ipod&offset=0&limit=50')->willReturn($response);
+        $httpMethodsClient->get('/search?q=ipod&offset=0&limit=50')->willReturn($response);
         $response->getBody()->willReturn($this->loadFixture('ipod'));
         $this->getSlice(0, 50)->shouldHaveCount(50);
     }

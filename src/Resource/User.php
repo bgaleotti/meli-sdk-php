@@ -26,6 +26,6 @@ class User extends Resource
 
     public function acceptedPaymentMethods($id)
     {
-        return new AcceptedPaymentMethod($this->adapter, $id);
+        return new AcceptedPaymentMethod($this->httpMethodsClient, $id);
     }
 }

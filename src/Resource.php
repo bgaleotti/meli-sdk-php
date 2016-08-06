@@ -11,7 +11,7 @@
 
 namespace Meli;
 
-use Ivory\HttpAdapter\HttpAdapterInterface;
+use Http\Client\Common\HttpMethodsClient;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 
@@ -20,25 +20,18 @@ use Pagerfanta\Pagerfanta;
  */
 abstract class Resource
 {
-    /**
-     * @type HttpAdapterInterface
-     */
-    protected $adapter;
+    protected $httpMethodsClient;
 
-    /**
-     * @param HttpAdapterInterface $adapter
-     */
-    public function __construct(HttpAdapterInterface $adapter)
+    public function __construct(HttpMethodsClient $httpMethodsClient)
     {
-        $this->adapter = $adapter;
+        $this->httpMethodsClient = $httpMethodsClient;
     }
 
-    /**
-     * @return array
-     */
-    protected function get($uri, array $options = [])
+    protected function get($uri) : array
     {
-        return json_decode($this->adapter->get($uri, $options)->getBody(), true);
+        $response = $this->httpMethodsClient->get($uri);
+
+        return json_decode((string) $response->getBody(), true);
     }
 
     /**
