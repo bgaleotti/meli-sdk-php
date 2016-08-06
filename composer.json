@@ -20,9 +20,7 @@
     },
     "require": {
         "php": "^7.0",
-        "jms/serializer": "~1.0",
-        "pagerfanta/pagerfanta": "~1.0",
-        "symfony/finder": "~2.7",
+        "pagerfanta/pagerfanta": "^1.0",
         "psr/http-message": "^1.0",
         "php-http/httplug": "^1.0",
         "php-http/message-factory": "^1.0",
@@ -30,13 +28,14 @@
         "php-http/client-common": "^1.2"
     },
     "require-dev": {
-        "phpspec/phpspec": "~2.1"
+        "phpspec/phpspec": "^3.0"
     },
     "suggest": {
         "adrienbrault/pagerfanta-iterator": "Support traversing paginated resources."
     },
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin",
+        "sort-packages": true
     },
     "extra": {
         "branch-alias": {
