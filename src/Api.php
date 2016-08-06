@@ -21,9 +21,6 @@ use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\MessageFactory;
 use Http\Message\UriFactory;
-use Ivory\HttpAdapter\Configuration;
-use Ivory\HttpAdapter\ConfigurationInterface;
-use Ivory\HttpAdapter\HttpAdapterInterface;
 use Meli\Exception\ResourceNotRegistered;
 use Symfony\Component\Finder\Finder;
 
@@ -33,7 +30,7 @@ use Symfony\Component\Finder\Finder;
 class Api
 {
     const BASE_URL = 'https://api.mercadolibre.com';
-    const VERSION  = '0.2-DEV';
+    const VERSION = '0.2-DEV';
 
     protected $httpClient;
     protected $messageFactory;
@@ -54,7 +51,7 @@ class Api
     public function __construct(HttpClient $httpClient, MessageFactory $messageFactory, UriFactory $uriFactory)
     {
         $httpClient = new PluginClient($httpClient, [
-           new AddHostPlugin($uriFactory->createUri(self::BASE_URL))
+           new AddHostPlugin($uriFactory->createUri(self::BASE_URL)),
         ]);
 
         $this->httpClient = $httpClient;
@@ -90,7 +87,7 @@ class Api
 
         $namespace = __NAMESPACE__.'\\Resource';
         foreach ($finder as $file) {
-            $className  = $file->getBasename('.php');
+            $className = $file->getBasename('.php');
             $reflectionClass = new \ReflectionClass($namespace.'\\'.$className);
             if ($reflectionClass->isSubclassOf(Resource::class) && !$reflectionClass->isAbstract()) {
                 $resource = $reflectionClass->newInstanceArgs([$this->httpMethodsClient]);
