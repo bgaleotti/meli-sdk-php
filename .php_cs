@@ -19,14 +19,13 @@ $finder = \Symfony\CS\Finder\DefaultFinder::create()
 return \Symfony\CS\Config\Config::create()
     ->finder($finder)
     ->fixers([
-        'align_double_arrow',
-        'align_equals',
+        'unalign_double_arrow',
+        'unalign_equals',
         'header_comment',
         'ordered_use',
         'short_array_syntax',
         'strict',
         'strict_param',
         'phpdoc_order',
-        'phpdoc_var_to_type',
     ])
 ;
