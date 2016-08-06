@@ -28,7 +28,7 @@
         "php-http/client-common": "^1.2"
     },
     "require-dev": {
-        "phpspec/phpspec": "^2.1"
+        "phpspec/phpspec": "^3.0"
     },
     "suggest": {
         "adrienbrault/pagerfanta-iterator": "Support traversing paginated resources."
