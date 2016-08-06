@@ -9,24 +9,24 @@
  * with this source code in the file LICENSE.
  */
 
-namespace spec\Meli\Resource;
+namespace spec\Meli\Resource\User;
 
 use Http\Client\Common\HttpMethodsClient;
-use Meli\Resource\Countries;
+use Meli\Resource\User\AcceptedPaymentMethods;
 use PhpSpec\ObjectBehavior;
 
 /**
  * @author Bruno Galeotti <bgaleotti@gmail.com>
  */
-class CountriesSpec extends ObjectBehavior
+class AcceptedPaymentMethodsSpec extends ObjectBehavior
 {
     function let(HttpMethodsClient $httpMethodsClient)
     {
-        $this->beConstructedWith($httpMethodsClient);
+        $this->beConstructedWith($httpMethodsClient, 123456789);
     }
 
     function it_is_initializable()
     {
-        $this->shouldHaveType(Countries::class);
+        $this->shouldHaveType(AcceptedPaymentMethods::class);
     }
 }

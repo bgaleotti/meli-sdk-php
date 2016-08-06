@@ -12,13 +12,13 @@
 namespace spec\Meli\Resource;
 
 use Http\Client\Common\HttpMethodsClient;
-use Meli\Resource\Countries;
+use Meli\Resource\Cities;
 use PhpSpec\ObjectBehavior;
 
 /**
  * @author Bruno Galeotti <bgaleotti@gmail.com>
  */
-class CountriesSpec extends ObjectBehavior
+class CitiesSpec extends ObjectBehavior
 {
     function let(HttpMethodsClient $httpMethodsClient)
     {
@@ -27,6 +27,6 @@ class CountriesSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType(Countries::class);
+        $this->shouldHaveType(Cities::class);
     }
 }

@@ -20,7 +20,6 @@
     },
     "require": {
         "php": "^7.0",
-        "doctrine/inflector": "~1.0",
         "jms/serializer": "~1.0",
         "pagerfanta/pagerfanta": "~1.0",
         "symfony/finder": "~2.7",

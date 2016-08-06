@@ -16,16 +16,16 @@ use Http\Message\MessageFactory;
 use Http\Message\UriFactory;
 use Meli\Api;
 use Meli\Exception\ResourceNotRegistered;
-use Meli\Resource\Category;
-use Meli\Resource\City;
-use Meli\Resource\Country;
-use Meli\Resource\Currency;
-use Meli\Resource\CurrencyConversion;
-use Meli\Resource\Item;
-use Meli\Resource\Site;
-use Meli\Resource\SiteDomain;
-use Meli\Resource\State;
-use Meli\Resource\User;
+use Meli\Resource\Categories;
+use Meli\Resource\Cities;
+use Meli\Resource\Countries;
+use Meli\Resource\Currencies;
+use Meli\Resource\CurrencyConversions;
+use Meli\Resource\Items;
+use Meli\Resource\Sites;
+use Meli\Resource\SiteDomains;
+use Meli\Resource\States;
+use Meli\Resource\Users;
 use PhpSpec\ObjectBehavior;
 use Psr\Http\Message\UriInterface;
 
@@ -56,15 +56,15 @@ class ApiSpec extends ObjectBehavior
 
     function it_returns_known_resources()
     {
-        $this->categories()->shouldHaveType(Category::class);
-        $this->cities()->shouldHaveType(City::class);
-        $this->countries()->shouldHaveType(Country::class);
-        $this->currencies()->shouldHaveType(Currency::class);
-        $this->currencyConversions()->shouldHaveType(CurrencyConversion::class);
-        $this->items()->shouldHaveType(Item::class);
-        $this->sites()->shouldHaveType(Site::class);
-        $this->siteDomains()->shouldHaveType(SiteDomain::class);
-        $this->states()->shouldHaveType(State::class);
-        $this->users()->shouldHaveType(User::class);
+        $this->categories()->shouldHaveType(Categories::class);
+        $this->cities()->shouldHaveType(Cities::class);
+        $this->countries()->shouldHaveType(Countries::class);
+        $this->currencies()->shouldHaveType(Currencies::class);
+        $this->currencyConversions()->shouldHaveType(CurrencyConversions::class);
+        $this->items()->shouldHaveType(Items::class);
+        $this->sites()->shouldHaveType(Sites::class);
+        $this->siteDomains()->shouldHaveType(SiteDomains::class);
+        $this->states()->shouldHaveType(States::class);
+        $this->users()->shouldHaveType(Users::class);
     }
 }

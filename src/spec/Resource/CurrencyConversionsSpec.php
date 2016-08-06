@@ -12,13 +12,14 @@
 namespace spec\Meli\Resource;
 
 use Http\Client\Common\HttpMethodsClient;
-use Meli\Resource\Countries;
+use Meli\Resource\CurrencyConversion;
+use Meli\Resource\CurrencyConversions;
 use PhpSpec\ObjectBehavior;
 
 /**
  * @author Bruno Galeotti <bgaleotti@gmail.com>
  */
-class CountriesSpec extends ObjectBehavior
+class CurrencyConversionSpec extends ObjectBehavior
 {
     function let(HttpMethodsClient $httpMethodsClient)
     {
@@ -27,6 +28,6 @@ class CountriesSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType(Countries::class);
+        $this->shouldHaveType(CurrencyConversions::class);
     }
 }
