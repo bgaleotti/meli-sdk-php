@@ -12,14 +12,14 @@
 namespace spec\Meli\Resource;
 
 use Http\Client\Common\HttpMethodsClient;
-use Meli\Resource\Category;
-use Meli\Resource\Category\Attribute;
+use Meli\Resource\Categories;
+use Meli\Resource\Category\Attributes;
 use PhpSpec\ObjectBehavior;
 
 /**
  * @author Bruno Galeotti <bgaleotti@gmail.com>
  */
-class CategorySpec extends ObjectBehavior
+class CategoriesSpec extends ObjectBehavior
 {
     function let(HttpMethodsClient $httpMethodsClient)
     {
@@ -28,11 +28,11 @@ class CategorySpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType(Category::class);
+        $this->shouldHaveType(Categories::class);
     }
 
     function it_returns_category_attribute_resource()
     {
-        $this->attributes('MLA109291')->shouldHaveType(Attribute::class);
+        $this->attributes('MLA109291')->shouldHaveType(Attributes::class);
     }
 }

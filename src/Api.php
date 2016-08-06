@@ -80,7 +80,7 @@ class Api
         return $this->resources[$name];
     }
 
-    protected function registerResources()
+    private function registerResources()
     {
         $finder = new Finder();
         $finder->files()->in(__DIR__.'/Resource')->depth(0);
@@ -91,7 +91,7 @@ class Api
             $reflectionClass = new \ReflectionClass($namespace.'\\'.$className);
             if ($reflectionClass->isSubclassOf(Resource::class) && !$reflectionClass->isAbstract()) {
                 $resource = $reflectionClass->newInstanceArgs([$this->httpMethodsClient]);
-                $resourceName = Inflector::pluralize(Inflector::camelize($className));
+                $resourceName = lcfirst($className);
                 $this->resources[$resourceName] = $resource;
             }
         }
