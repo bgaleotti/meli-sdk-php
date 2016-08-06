@@ -19,12 +19,12 @@ use Meli\Resource\Category\Attribute;
  */
 class Category extends Resource
 {
-    public function findById($id)
+    public function findById(string $id) : array
     {
         return $this->get("/categories/$id");
     }
 
-    public function attributes($id)
+    public function attributes(string $id) : Attribute
     {
         return new Attribute($this->httpMethodsClient, $id);
     }

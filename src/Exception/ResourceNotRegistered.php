@@ -16,24 +16,15 @@ namespace Meli\Exception;
  */
 class ResourceNotRegistered extends \RuntimeException implements ExceptionInterface
 {
-    /**
-     * @type string
-     */
     private $name;
 
-    /**
-     * @param string $name
-     */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         parent::__construct(sprintf('Resource "%s" is not registered', $name));
         $this->name = $name;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }

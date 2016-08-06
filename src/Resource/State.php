@@ -18,7 +18,7 @@ use Meli\Resource;
  */
 class State extends Resource
 {
-    public function findById($id)
+    public function findById(string $id) : array
     {
         return $this->get("/states/$id");
     }

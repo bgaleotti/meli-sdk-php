@@ -18,7 +18,7 @@ use Meli\Resource;
  */
 class City extends Resource
 {
-    public function findById($id)
+    public function findById($id) : array
     {
         return $this->get("/cities/$id");
     }

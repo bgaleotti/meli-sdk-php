@@ -12,18 +12,19 @@
 namespace Meli\Resource;
 
 use Meli\Resource;
+use Pagerfanta\Pagerfanta;
 
 /**
  * @author Bruno Galeotti <bgaleotti@gmail.com>
  */
 class SiteDomain extends Resource
 {
-    public function findByUrl($url)
+    public function findByUrl(string $url) : array
     {
         return $this->get("/site_domains/$url");
     }
 
-    public function findAll()
+    public function findAll() : Pagerfanta
     {
         return $this->createPaginator('/site_domains');
     }

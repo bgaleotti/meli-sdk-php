@@ -12,7 +12,6 @@
 namespace Meli\Pagerfanta\Adapter;
 
 use Http\Client\Common\HttpMethodsClient;
-use Ivory\HttpAdapter\HttpAdapterInterface;
 use Pagerfanta\Adapter\AdapterInterface;
 
 /**
@@ -30,9 +29,6 @@ class ItemAdapter implements AdapterInterface
         $this->uri = $uri;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getNbResults()
     {
         if (!$this->json) {
@@ -42,9 +38,6 @@ class ItemAdapter implements AdapterInterface
         return (int) $this->json['paging']['total'];
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getSlice($offset, $length)
     {
         $uri = $this->uri;
@@ -56,10 +49,7 @@ class ItemAdapter implements AdapterInterface
         return $this->json['results'];
     }
 
-    /**
-     * @return array
-     */
-    public function getFilters()
+    public function getFilters() : array
     {
         if (!$this->json) {
             $this->json = $this->fetchJson($this->uri);
@@ -68,10 +58,7 @@ class ItemAdapter implements AdapterInterface
         return $this->json['filters'];
     }
 
-    /**
-     * @return array
-     */
-    public function getAvailableFilters()
+    public function getAvailableFilters() : array
     {
         if (!$this->json) {
             $this->json = $this->fetchJson($this->uri);
@@ -80,10 +67,7 @@ class ItemAdapter implements AdapterInterface
         return $this->json['available_filters'];
     }
 
-    /**
-     * @return array
-     */
-    public function getSort()
+    public function getSort() : array
     {
         if (!$this->json) {
             $this->json = $this->fetchJson($this->uri);
@@ -92,10 +76,7 @@ class ItemAdapter implements AdapterInterface
         return $this->json['sort'];
     }
 
-    /**
-     * @return array
-     */
-    public function getAvailableSorts()
+    public function getAvailableSorts() : array
     {
         if (!$this->json) {
             $this->json = $this->fetchJson($this->uri);
@@ -104,12 +85,7 @@ class ItemAdapter implements AdapterInterface
         return $this->json['available_sorts'];
     }
 
-    /**
-     * @param string $uri
-     *
-     * @return array
-     */
-    private function fetchJson($uri)
+    private function fetchJson(string $uri) : array
     {
         return json_decode($this->httpMethodsClient->get($uri)->getBody(), true);
     }

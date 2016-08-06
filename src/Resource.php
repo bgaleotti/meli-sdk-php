@@ -12,6 +12,7 @@
 namespace Meli;
 
 use Http\Client\Common\HttpMethodsClient;
+use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 
@@ -27,29 +28,19 @@ abstract class Resource
         $this->httpMethodsClient = $httpMethodsClient;
     }
 
-    protected function get($uri) : array
+    protected function get(string $uri) : array
     {
         $response = $this->httpMethodsClient->get($uri);
 
         return json_decode((string) $response->getBody(), true);
     }
 
-    /**
-     * @param string $uri
-     *
-     * @return Pagerfanta
-     */
-    protected function createPaginator($uri)
+    protected function createPaginator(string $uri) : Pagerfanta
     {
         return new Pagerfanta($this->createPaginatorAdapter($uri));
     }
 
-    /**
-     * @param string $uri
-     *
-     * @return ArrayAdapter
-     */
-    protected function createPaginatorAdapter($uri)
+    protected function createPaginatorAdapter(string $uri) : AdapterInterface
     {
         return new ArrayAdapter($this->get($uri));
     }

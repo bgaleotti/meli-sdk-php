@@ -12,18 +12,19 @@
 namespace Meli\Resource;
 
 use Meli\Resource;
+use Pagerfanta\Pagerfanta;
 
 /**
  * @author Bruno Galeotti <bgaleotti@gmail.com>
  */
 class Currency extends Resource
 {
-    public function findById($id)
+    public function findById(string $id) : array
     {
         return $this->get("/currencies/$id");
     }
 
-    public function findAll()
+    public function findAll() : Pagerfanta
     {
         return $this->createPaginator('/currencies');
     }

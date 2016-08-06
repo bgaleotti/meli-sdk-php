@@ -11,26 +11,27 @@
 
 namespace Meli\Resource;
 
-use Meli\Pagerfanta\httpMethodsClient\ItemhttpMethodsClient;
+use Meli\Pagerfanta\Adapter\ItemAdapter;
 use Meli\Resource;
+use Pagerfanta\Pagerfanta;
 
 /**
  * @author Bruno Galeotti <bgaleotti@gmail.com>
  */
 class Item extends Resource
 {
-    public function findById($id)
+    public function findById(string $id) : array
     {
         return $this->get("/items/$id");
     }
 
-    public function search($siteId, $query)
+    public function search(string $siteId, string $query) : Pagerfanta
     {
         return $this->createPaginator("/sites/$siteId/search?q=".urlencode($query));
     }
 
-    protected function createPaginatorhttpMethodsClient($uri)
+    protected function createPaginator(string $uri) : Pagerfanta
     {
-        return new ItemhttpMethodsClient($this->httpMethodsClient, $uri);
+        return new Pagerfanta(new ItemAdapter($this->httpMethodsClient, $uri));
     }
 }

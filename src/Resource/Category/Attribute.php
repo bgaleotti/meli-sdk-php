@@ -13,28 +13,22 @@ namespace Meli\Resource\Category;
 
 use Http\Client\Common\HttpMethodsClient;
 use Meli\Resource;
+use Pagerfanta\Pagerfanta;
 
 /**
  * @author Bruno Galeotti <bgaleotti@gmail.com>
  */
 class Attribute extends Resource
 {
-    /**
-     * @type string
-     */
     protected $categoryId;
 
-    /**
-     * @param HttpMethodsClient $httpMethodsClient
-     * @param string               $categoryId
-     */
-    public function __construct(HttpMethodsClient $httpMethodsClient, $categoryId)
+    public function __construct(HttpMethodsClient $httpMethodsClient, string $categoryId)
     {
         parent::__construct($httpMethodsClient);
         $this->categoryId = $categoryId;
     }
 
-    public function findAll()
+    public function findAll() : Pagerfanta
     {
         return $this->createPaginator("/categories/{$this->categoryId}/attributes");
     }

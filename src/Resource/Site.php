@@ -23,37 +23,37 @@ use Meli\Resource\Site\PaymentMethod;
  */
 class Site extends Resource
 {
-    public function findById($id)
+    public function findById(string $id) : array
     {
         return $this->get("/sites/$id");
     }
 
-    public function findAll()
+    public function findAll() : array
     {
         return $this->createPaginator('/sites');
     }
 
-    public function categories($id)
+    public function categories(string $id) : SiteCategory
     {
         return new SiteCategory($this->httpMethodsClient, $id);
     }
 
-    public function listingExposures($id)
+    public function listingExposures(string $id) : ListingExposure
     {
         return new ListingExposure($this->httpMethodsClient, $id);
     }
 
-    public function listingPrices($id)
+    public function listingPrices(string $id) : ListingPrice
     {
         return new ListingPrice($this->httpMethodsClient, $id);
     }
 
-    public function listingTypes($id)
+    public function listingTypes(string $id) : ListingType
     {
         return new ListingType($this->httpMethodsClient, $id);
     }
 
-    public function paymentMethods($id)
+    public function paymentMethods(string $id) : PaymentMethod
     {
         return new PaymentMethod($this->httpMethodsClient, $id);
     }
