@@ -11,7 +11,6 @@
 
 namespace Meli;
 
-use Doctrine\Common\Inflector\Inflector;
 use Http\Client\Common\HttpMethodsClient;
 use Http\Client\Common\Plugin\AddHostPlugin;
 use Http\Client\Common\PluginClient;
@@ -22,7 +21,6 @@ use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\MessageFactory;
 use Http\Message\UriFactory;
 use Meli\Exception\ResourceNotRegistered;
-use Symfony\Component\Finder\Finder;
 
 /**
  * @author Bruno Galeotti <bgaleotti@gmail.com>
@@ -82,11 +80,9 @@ class Api
 
     private function registerResources()
     {
-        $finder = new Finder();
-        $finder->files()->in(__DIR__.'/Resource')->depth(0);
-
         $namespace = __NAMESPACE__.'\\Resource';
-        foreach ($finder as $file) {
+        foreach (glob(__DIR__.'/Resource/*.php') as $filename) {
+            $file = new \SplFileInfo($filename);
             $className = $file->getBasename('.php');
             $reflectionClass = new \ReflectionClass($namespace.'\\'.$className);
             if ($reflectionClass->isSubclassOf(Resource::class) && !$reflectionClass->isAbstract()) {
