@@ -34,7 +34,8 @@
         "adrienbrault/pagerfanta-iterator": "Support traversing paginated resources."
     },
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin",
+        "sort-packages": true
     },
     "extra": {
         "branch-alias": {
