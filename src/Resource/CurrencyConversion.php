@@ -18,7 +18,7 @@ use Meli\Resource;
  */
 class CurrencyConversion extends Resource
 {
-    public function search($from, $to)
+    public function search(string $from, string $to) : array
     {
         return $this->get("/currency_conversions/search?from=$from&to=$to");
     }

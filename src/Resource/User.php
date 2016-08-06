@@ -19,12 +19,12 @@ use Meli\Resource\User\AcceptedPaymentMethod;
  */
 class User extends Resource
 {
-    public function findById($id)
+    public function findById(string $id) : array
     {
         return $this->get("/users/$id");
     }
 
-    public function acceptedPaymentMethods($id)
+    public function acceptedPaymentMethods(string $id) : AcceptedPaymentMethod
     {
         return new AcceptedPaymentMethod($this->httpMethodsClient, $id);
     }

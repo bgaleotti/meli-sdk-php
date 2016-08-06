@@ -13,34 +13,23 @@ namespace Meli\Resource\Site;
 
 use Http\Client\Common\HttpMethodsClient;
 use Meli\Resource;
+use Pagerfanta\Pagerfanta;
 
 /**
  * @author Bruno Galeotti <bgaleotti@gmail.com>
  */
 class ListingType extends Resource
 {
-    /**
-     * @type string
-     */
     protected $siteId;
 
-    /**
-     * @param HttpMethodsClient $httpMethodsClient
-     * @param string               $siteId
-     */
-    public function __construct(HttpMethodsClient $httpMethodsClient, $siteId)
+    public function __construct(HttpMethodsClient $httpMethodsClient, string $siteId)
     {
         parent::__construct($httpMethodsClient);
         $this->siteId = $siteId;
     }
 
-    public function findAll()
+    public function findAll() : Pagerfanta
     {
         return $this->createPaginator("/sites/{$this->siteId}/listing_types");
-    }
-
-    protected function getModelClassName()
-    {
-        return \Meli\Model\Site\ListingType::class;
     }
 }

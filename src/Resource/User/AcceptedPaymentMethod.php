@@ -13,28 +13,22 @@ namespace Meli\Resource\User;
 
 use Http\Client\Common\HttpMethodsClient;
 use Meli\Resource;
+use Pagerfanta\Pagerfanta;
 
 /**
  * @author Bruno Galeotti <bgaleotti@gmail.com>
  */
 class AcceptedPaymentMethod extends Resource
 {
-    /**
-     * @type string
-     */
     protected $userId;
 
-    /**
-     * @param HttpMethodsClient $httpMethodsClient
-     * @param string               $userId
-     */
-    public function __construct(HttpMethodsClient $httpMethodsClient, $userId)
+    public function __construct(HttpMethodsClient $httpMethodsClient, string $userId)
     {
         parent::__construct($httpMethodsClient);
         $this->userId = $userId;
     }
 
-    public function findAll()
+    public function findAll() : Pagerfanta
     {
         return $this->createPaginator("/users/{$this->userId}/accepted_payment_methods");
     }
